@@ -1,5 +1,8 @@
-<?php // Customize Admin - Settings Callback
+<?php // customizeadmin - Settings Callbacks
 
+
+
+// disable direct file access
 if (!defined('ABSPATH')) {
 
 	exit;
@@ -11,7 +14,7 @@ if (!defined('ABSPATH')) {
 function customizeadmin_callback_section_login()
 {
 
-	echo '<p>These settings enable you to customize the WP Login screen.</p>';
+	echo '<p>' . esc_html__('These settings enable you to customize the WP Login screen.', 'customizeadmin') . '</p>';
 }
 
 
@@ -20,8 +23,9 @@ function customizeadmin_callback_section_login()
 function customizeadmin_callback_section_admin()
 {
 
-	echo '<p>These settings enable you to customize the WP Admin Area.</p>';
+	echo '<p>' . esc_html__('These settings enable you to customize the WP Admin Area.', 'customizeadmin') . '</p>';
 }
+
 
 
 // callback: text field
@@ -41,6 +45,20 @@ function customizeadmin_callback_field_text($args)
 
 
 
+// radio field options
+function customizeadmin_options_radio()
+{
+
+	return array(
+
+		'enable'  => esc_html__('Enable custom styles', 'customizeadmin'),
+		'disable' => esc_html__('Disable custom styles', 'customizeadmin')
+
+	);
+}
+
+
+
 // callback: radio field
 function customizeadmin_callback_field_radio($args)
 {
@@ -52,12 +70,7 @@ function customizeadmin_callback_field_radio($args)
 
 	$selected_option = isset($options[$id]) ? sanitize_text_field($options[$id]) : '';
 
-	$radio_options = array(
-
-		'enable'  => 'Enable custom styles',
-		'disable' => 'Disable custom styles'
-
-	);
+	$radio_options = customizeadmin_options_radio();
 
 	foreach ($radio_options as $value => $label) {
 
@@ -106,6 +119,26 @@ function customizeadmin_callback_field_checkbox($args)
 
 
 
+// select field options
+function customizeadmin_options_select()
+{
+
+	return array(
+
+		'default'   => esc_html__('Default',   'customizeadmin'),
+		'light'     => esc_html__('Light',     'customizeadmin'),
+		'blue'      => esc_html__('Blue',      'customizeadmin'),
+		'coffee'    => esc_html__('Coffee',    'customizeadmin'),
+		'ectoplasm' => esc_html__('Ectoplasm', 'customizeadmin'),
+		'midnight'  => esc_html__('Midnight',  'customizeadmin'),
+		'ocean'     => esc_html__('Ocean',     'customizeadmin'),
+		'sunrise'   => esc_html__('Sunrise',   'customizeadmin'),
+
+	);
+}
+
+
+
 // callback: select field
 function customizeadmin_callback_field_select($args)
 {
@@ -117,18 +150,7 @@ function customizeadmin_callback_field_select($args)
 
 	$selected_option = isset($options[$id]) ? sanitize_text_field($options[$id]) : '';
 
-	$select_options = array(
-
-		'default'   => 'Default',
-		'light'     => 'Light',
-		'blue'      => 'Blue',
-		'coffee'    => 'Coffee',
-		'ectoplasm' => 'Ectoplasm',
-		'midnight'  => 'Midnight',
-		'ocean'     => 'Ocean',
-		'sunrise'   => 'Sunrise',
-
-	);
+	$select_options = customizeadmin_options_select();
 
 	echo '<select id="customizeadmin_options_' . $id . '" name="customizeadmin_options[' . $id . ']">';
 

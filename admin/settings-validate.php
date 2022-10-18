@@ -1,9 +1,14 @@
-<?php // Customize Admin - Settings Validate 
+<?php // customizeadmin - Validate Settings
 
+
+
+// disable direct file access
 if (!defined('ABSPATH')) {
 
 	exit;
 }
+
+
 
 // callback: validate options
 function customizeadmin_callback_validate_options($input)
@@ -22,12 +27,7 @@ function customizeadmin_callback_validate_options($input)
 	}
 
 	// custom style
-	$radio_options = array(
-
-		'enable'  => 'Enable custom styles',
-		'disable' => 'Disable custom styles'
-
-	);
+	$radio_options = customizeadmin_options_radio();
 
 	if (!isset($input['custom_style'])) {
 
@@ -59,18 +59,7 @@ function customizeadmin_callback_validate_options($input)
 	$input['custom_toolbar'] = ($input['custom_toolbar'] == 1 ? 1 : 0);
 
 	// custom scheme
-	$select_options = array(
-
-		'default'   => 'Default',
-		'light'     => 'Light',
-		'blue'      => 'Blue',
-		'coffee'    => 'Coffee',
-		'ectoplasm' => 'Ectoplasm',
-		'midnight'  => 'Midnight',
-		'ocean'     => 'Ocean',
-		'sunrise'   => 'Sunrise',
-
-	);
+	$select_options = customizeadmin_options_select();
 
 	if (!isset($input['custom_scheme'])) {
 
